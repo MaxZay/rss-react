@@ -1,4 +1,4 @@
-import './Search.css'
+import './styles/Search.css'
 import LOUPE from './assets/loupe.svg'
 
 export const Search = () => {
