@@ -1,3 +1,4 @@
+import { Buttons } from './Buttons'
 import './styles/Card.css'
 
 interface CardProps {
@@ -12,6 +13,7 @@ export const Card = (props: CardProps) => {
       <img src={props.src} alt={props.name} className="card-item__img" />
       <h4>{props.name}</h4>
       <h4>{props.price}</h4>
+      <Buttons />
     </div>
   )
 }
