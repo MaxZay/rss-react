@@ -1,0 +1,43 @@
+.form-item {
+  width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.form-item__input {
+  width: 50%;
+  height: 30px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.form-item__input-date {
+  width: 52%;
+  height: 30px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.form-item__input-gender {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.form-item__input-select {
+  height: 30px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.form-item__label-for-checkbox {
+  width: 60%;
+}
+
+.form-item__input-checkbox {
+  margin-bottom: 20px;
+}
