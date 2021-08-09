@@ -9,8 +9,8 @@ export const App = () => {
     <div>
       <Form state={setFormData} />
       <main>
-        {formData.map((item) => (
-          <Card data={item} />
+        {formData.map((item, key) => (
+          <Card item={item} key={key} />
         ))}
       </main>
     </div>

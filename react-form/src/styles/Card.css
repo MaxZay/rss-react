@@ -1,0 +1,22 @@
+h4 {
+  margin: 0;
+}
+
+.card-item {
+  border: black 2px solid;
+  width: 30%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-item__block {
+  display: flex;
+  justify-content: start;
+}
+
+.card-item__result {
+  margin-left: 10px;
+}
