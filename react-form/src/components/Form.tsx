@@ -29,6 +29,13 @@ export const Form: React.FC<IForm> = (setFormData) => {
         checkboxValue,
       },
     ])
+    setNameValue('')
+    setLastNameValue('')
+    setBirthValue('')
+    setMaleSexValue(false)
+    setFemaleSexValue(false)
+    setSelectValue('Россия')
+    setCheckboxValue(false)
   }
 
   return (
