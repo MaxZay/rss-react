@@ -1,9 +1,14 @@
-export const Main = (props) => {
-  console.log(props)
+import { useEffect, useState } from 'react'
+import newsInfo from '../classes/newsInfo'
 
+interface IMain {
+  newsData: any
+}
+
+export const Main = (props) => {
   return (
     <div>
-      <h2>hi</h2>
+      {props.newsData && props.newsData.map((item) => <h1>{item.title}</h1>)}
     </div>
   )
 }
