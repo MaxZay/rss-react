@@ -1,16 +1,20 @@
 import '../styles/search.css'
 import LOUPE from '../assets/loupe.svg'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 
 interface ISearch {
-  flagFunc: () => void
-  setSearchData: () => void
+  flagFunc: (flag: boolean) => void
+  setSearchData: (value: string) => void
   searchData: string
 }
 
 export const Search: React.FC<ISearch> = (props) => {
+  const submitHandler = (event: FormEvent) => {
+    event.preventDefault()
+  }
+
   return (
-    <div className="search-item">
+    <form className="search-item" onSubmit={submitHandler}>
       <input
         className="search-item__input"
         type="text"
@@ -34,6 +38,6 @@ export const Search: React.FC<ISearch> = (props) => {
           height="20"
         />
       </button>
-    </div>
+    </form>
   )
 }

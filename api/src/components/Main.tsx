@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react'
-import newsInfo from '../classes/newsInfo'
+import { Card } from './Card'
 
 interface IMain {
   newsData: any
 }
 
-export const Main = (props) => {
+export const Main: React.FC<IMain> = (props: IMain) => {
   return (
     <div>
-      {props.newsData && props.newsData.map((item) => <h1>{item.title}</h1>)}
+      {props.newsData &&
+        props.newsData.map((item: any, key: any) => (
+          <Card data={item} key={key} />
+        ))}
     </div>
   )
 }

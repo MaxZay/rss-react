@@ -17,9 +17,7 @@ export const App = () => {
           return res.json()
         })
         .then((data) => {
-          console.log(data.articles)
           setNews(data.articles)
-          console.log(news)
         })
     }
   })
