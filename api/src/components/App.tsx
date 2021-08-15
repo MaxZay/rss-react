@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Main } from './Main'
 import { Search } from './Search'
+import '../styles/app.css'
 
 export const App = () => {
   const [news, setNews] = useState([])
@@ -37,7 +38,7 @@ export const App = () => {
         searchData={searchData}
         setSearchData={setSearchData}
       />
-      {isExpects && <h3>...загрузка</h3>}
+      {isExpects && <h3 className="error-line">...загрузка</h3>}
       {!isExpects && <Main newsData={news} />}
     </div>
   )
