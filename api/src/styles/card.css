@@ -7,6 +7,7 @@
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
 .card-item__img {
@@ -16,5 +17,42 @@
 }
 
 .card-item__block {
-  width: 60%;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-item__title {
+  font-family: 'Roboto', sans-serif;
+  margin-top: 10px;
+  font-weight: bold;
+  color: wheat;
+  font-size: 16px;
+  text-align: center;
+}
+
+.card-item__description {
+  color: rgb(200, 200, 200);
+  font-size: 13px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  word-wrap: normal;
+}
+
+.card-item__date {
+  position: absolute;
+  color: rgb(200, 200, 200);
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  right: 10px;
+  bottom: 0px;
+}
+
+.card-item__author {
+  position: absolute;
+  color: rgb(200, 200, 200);
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  bottom: 0px;
 }

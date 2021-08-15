@@ -5,6 +5,10 @@ interface IData {
 }
 
 export const Card: React.FC<IData> = (props) => {
+  const date = Date.parse(props.data.publishedAt)
+  const temp = new Date(date)
+  const res = `${temp.getDate()}-${temp.getMonth()}-${temp.getFullYear()}`
+
   return (
     <div className="card-item">
       <div>
@@ -17,7 +21,10 @@ export const Card: React.FC<IData> = (props) => {
         />
       </div>
       <div className="card-item__block">
-        <h3>{props.data.title}</h3>
+        <p className="card-item__title">{props.data.title}</p>
+        <p className="card-item__description">{props.data.description}</p>
+        <p className="card-item__date">{res}</p>
+        <p className="card-item__author">{props.data.author}</p>
       </div>
     </div>
   )
