@@ -8,15 +8,18 @@ export const App = () => {
   const [isResponced, setIsResponced] = useState(false)
   const [searchData, setSearchData] = useState('')
   const [isExpects, setIsExpects] = useState(false)
+  const [sortParam, setSortParam] = useState('popularity')
 
   useEffect(() => {
     if (isResponced && searchData.length > 0) {
+      setNews([])
       setIsResponced(false)
       setIsExpects(true)
+
       fetch(
         `https://newsapi.org/v2/everything?q=${searchData
           .trim()
-          .toLocaleLowerCase()}&from=2021-08-13&to=2021-08-13&sortBy=popularity&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
+          .toLocaleLowerCase()}&from=2021-08-13&to=2021-08-13&sortBy=${sortParam}&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
       )
         .then((res) => {
           return res.json()
@@ -38,8 +41,14 @@ export const App = () => {
         searchData={searchData}
         setSearchData={setSearchData}
       />
-      {isExpects && <h3 className="error-line">...загрузка</h3>}
-      {!isExpects && <Main newsData={news} />}
+      {isExpects && <h3 className="error-line">...loading</h3>}
+      {!isExpects && (
+        <Main
+          newsData={news}
+          setSortParam={setSortParam}
+          flagFunc={setIsResponced}
+        />
+      )}
     </div>
   )
 }

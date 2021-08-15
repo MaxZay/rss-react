@@ -1,0 +1,16 @@
+.main-item__block {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+label {
+  color: rgb(200, 200, 200);
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+}
