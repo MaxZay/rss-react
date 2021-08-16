@@ -6,6 +6,8 @@ interface ISearch {
   flagFunc: (flag: boolean) => void
   setSearchData: (value: string) => void
   searchData: string
+  pageInfo: any
+  setPageInfo: (value: any) => void
 }
 
 export const Search: React.FC<ISearch> = (props) => {
@@ -21,6 +23,10 @@ export const Search: React.FC<ISearch> = (props) => {
         placeholder="Search"
         value={props.searchData}
         onChange={(event: ChangeEvent<HTMLInputElement>) => {
+          props.setPageInfo({
+            ...props.pageInfo,
+            page: 1,
+          })
           props.setSearchData(event.target.value)
         }}
       ></input>

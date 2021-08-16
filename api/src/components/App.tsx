@@ -14,6 +14,11 @@ export const App = () => {
     titleFlag: false,
   })
   const [sortParam, setSortParam] = useState('popularity')
+  const [pageInfo, setPageInfo] = useState({
+    pageSize: 5,
+    page: 1,
+    maxPage: 20,
+  })
 
   useEffect(() => {
     if (isResponced && searchData.length > 0) {
@@ -24,12 +29,22 @@ export const App = () => {
       fetch(
         `https://newsapi.org/v2/everything?q=${searchData
           .trim()
-          .toLocaleLowerCase()}&from=2021-08-13&to=2021-08-13&sortBy=${sortParam}&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
+          .toLocaleLowerCase()}&from=2021-08-13&to=2021-08-13&sortBy=${sortParam}&pageSize=${
+          pageInfo.pageSize
+        }&page=${pageInfo.page}&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
       )
         .then((res) => {
           return res.json()
         })
         .then((data) => {
+          const res =
+            data.totalResults < 100
+              ? Math.ceil(data.totalResults / pageInfo.pageSize)
+              : Math.ceil(100 / pageInfo.pageSize)
+          setPageInfo({
+            ...pageInfo,
+            maxPage: res,
+          })
           setIsExpects(false)
           setNews(data.articles)
         })
@@ -45,6 +60,8 @@ export const App = () => {
         flagFunc={setIsResponced}
         searchData={searchData}
         setSearchData={setSearchData}
+        pageInfo={pageInfo}
+        setPageInfo={setPageInfo}
       />
       {isExpects && <h3 className="error-line">...loading</h3>}
       {!isExpects && (
@@ -54,6 +71,8 @@ export const App = () => {
           flagFunc={setIsResponced}
           radioFlag={radioFlag}
           setRadioFlag={setRadioFlag}
+          pageInfo={pageInfo}
+          setPageInfo={setPageInfo}
         />
       )}
     </div>
