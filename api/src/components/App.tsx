@@ -8,6 +8,11 @@ export const App = () => {
   const [isResponced, setIsResponced] = useState(false)
   const [searchData, setSearchData] = useState('')
   const [isExpects, setIsExpects] = useState(false)
+  const [radioFlag, setRadioFlag] = useState({
+    popularityFlag: true,
+    dateFlag: false,
+    titleFlag: false,
+  })
   const [sortParam, setSortParam] = useState('popularity')
 
   useEffect(() => {
@@ -47,6 +52,8 @@ export const App = () => {
           newsData={news}
           setSortParam={setSortParam}
           flagFunc={setIsResponced}
+          radioFlag={radioFlag}
+          setRadioFlag={setRadioFlag}
         />
       )}
     </div>
