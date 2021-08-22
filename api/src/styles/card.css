@@ -20,6 +20,8 @@
   width: 70%;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-item__title {
@@ -33,7 +35,7 @@
 
 .card-item__description {
   color: rgb(200, 200, 200);
-  font-size: 13px;
+  font-size: 14px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -55,4 +57,22 @@
   font-family: 'Roboto', sans-serif;
   font-size: 11px;
   bottom: 0px;
+}
+
+.card-item__details {
+  margin-left: auto;
+  margin-right: auto;
+  text-decoration: none;
+  color: rgb(40, 40, 40);
+  background-color: wheat;
+  border-radius: 15px;
+  padding: 3px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  transition: 0.2s;
+}
+
+.card-item__details:hover {
+  transform: scale(1.1);
 }

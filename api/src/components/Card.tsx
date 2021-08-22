@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
 import '../styles/card.css'
 
 interface IData {
   data: any
+  index: number
 }
 
 export const Card: React.FC<IData> = (props) => {
@@ -10,7 +12,7 @@ export const Card: React.FC<IData> = (props) => {
   const res = `${temp.getDate()}-${temp.getMonth()}-${temp.getFullYear()}`
 
   return (
-    <div className="card-item">
+    <div className="card-item" id={`${props.index}`}>
       <div>
         <img
           className="card-item__img"
@@ -25,6 +27,9 @@ export const Card: React.FC<IData> = (props) => {
         <p className="card-item__description">{props.data.description}</p>
         <p className="card-item__date">{res}</p>
         <p className="card-item__author">{props.data.author}</p>
+        <Link className="card-item__details" to={`/details/:${props.index}`}>
+          Details
+        </Link>
       </div>
     </div>
   )

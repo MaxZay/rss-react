@@ -106,8 +106,8 @@ export const Main: React.FC<IMain> = (props: IMain) => {
           </div>
         </div>
       )}
-      {props.newsData.map((item: any, key: any) => (
-        <Card data={item} key={key} />
+      {props.newsData.map((item: any, index: number) => (
+        <Card data={item} key={index} index={index} />
       ))}
       {props.newsData.length !== 0 && (
         <div className="main-item__page-info">

@@ -6,6 +6,7 @@ import { Main } from './Main'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { Switch, Route, useLocation, Redirect } from 'react-router-dom'
 import '../styles/content.css'
+import { Details } from './Details'
 
 export const Content = () => {
   const location = useLocation()
@@ -52,6 +53,7 @@ export const Content = () => {
           })
           setIsExpects(false)
           setNews(data.articles)
+          console.log(data.articles)
         })
         .catch(() => {
           console.log('error')
@@ -88,6 +90,9 @@ export const Content = () => {
           </Route>
           <Route path="/about" exact component={About} />
           <Route path="/404" component={Error} />
+          <Route path="/details/:title">
+            <Details news={news} />
+          </Route>
           <Redirect to="/404" />
         </Switch>
       </CSSTransition>
