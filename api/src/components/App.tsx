@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { Main } from './Main'
 import { Search } from './Search'
 import '../styles/app.css'
+import { About } from './About'
+import { Error } from './Error'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 export const App = () => {
   const [news, setNews] = useState([])
@@ -55,26 +58,46 @@ export const App = () => {
   })
 
   return (
-    <div>
-      <Search
-        flagFunc={setIsResponced}
-        searchData={searchData}
-        setSearchData={setSearchData}
-        pageInfo={pageInfo}
-        setPageInfo={setPageInfo}
-      />
-      {isExpects && <h3 className="error-line">...loading</h3>}
-      {!isExpects && (
-        <Main
-          newsData={news}
-          setSortParam={setSortParam}
-          flagFunc={setIsResponced}
-          radioFlag={radioFlag}
-          setRadioFlag={setRadioFlag}
-          pageInfo={pageInfo}
-          setPageInfo={setPageInfo}
-        />
-      )}
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path="/" exact>
+            <div>
+              <Search
+                flagFunc={setIsResponced}
+                searchData={searchData}
+                setSearchData={setSearchData}
+                pageInfo={pageInfo}
+                setPageInfo={setPageInfo}
+              />
+              {isExpects && <h3 className="error-line">...loading</h3>}
+              {!isExpects && (
+                <Main
+                  newsData={news}
+                  setSortParam={setSortParam}
+                  flagFunc={setIsResponced}
+                  radioFlag={radioFlag}
+                  setRadioFlag={setRadioFlag}
+                  pageInfo={pageInfo}
+                  setPageInfo={setPageInfo}
+                />
+              )}
+            </div>
+          </Route>
+          <Route path="/about" exact component={About} />
+          <Route component={Error} />
+        </Switch>
+      </div>
+    </Router>
   )
 }
