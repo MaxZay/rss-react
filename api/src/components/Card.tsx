@@ -27,7 +27,10 @@ export const Card: React.FC<IData> = (props) => {
         <p className="card-item__description">{props.data.description}</p>
         <p className="card-item__date">{res}</p>
         <p className="card-item__author">{props.data.author}</p>
-        <Link className="card-item__details" to={`/details/:${props.index}`}>
+        <Link
+          className="card-item__details"
+          to={`/details/:${props.data.title}`}
+        >
           Details
         </Link>
       </div>

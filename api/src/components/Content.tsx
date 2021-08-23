@@ -53,7 +53,6 @@ export const Content = () => {
           })
           setIsExpects(false)
           setNews(data.articles)
-          console.log(data.articles)
         })
         .catch(() => {
           console.log('error')
@@ -91,7 +90,7 @@ export const Content = () => {
           <Route path="/about" exact component={About} />
           <Route path="/404" component={Error} />
           <Route path="/details/:title">
-            <Details news={news} />
+            <Details />
           </Route>
           <Redirect to="/404" />
         </Switch>
