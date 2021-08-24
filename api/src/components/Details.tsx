@@ -15,8 +15,6 @@ export const Details = () => {
         return res.json()
       })
       .then((data) => {
-        console.log(data)
-
         setDetails(data.articles)
       })
       .catch(() => {
