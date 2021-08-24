@@ -11,6 +11,7 @@ export const DetailsCard = (props) => {
           <div className="details-item__info">
             {props.details.length !== 0 && (
               <img
+                className="details-item__img"
                 src={props.details[0].urlToImage}
                 alt="details"
                 width="200"
