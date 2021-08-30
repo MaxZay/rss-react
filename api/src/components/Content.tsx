@@ -7,6 +7,9 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { Switch, Route, useLocation, Redirect } from 'react-router-dom'
 import '../styles/content.css'
 import { Details } from './Details'
+import { useDispatch } from 'react-redux'
+import { useTypeSelector } from '../hooks/useTypeSelector'
+import { fetchNews } from '../store/action-creators/news'
 
 export const Content = () => {
   const location = useLocation()
@@ -15,50 +18,64 @@ export const Content = () => {
     dateFlag: false,
     titleFlag: false,
   })
-  const [news, setNews] = useState([])
+  // const [news, setNews] = useState([])
   const [isResponced, setIsResponced] = useState(false)
   const [searchData, setSearchData] = useState('')
-  const [isExpects, setIsExpects] = useState(false)
+  //const [isExpects, setIsExpects] = useState(false)
   const [sortParam, setSortParam] = useState('popularity')
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,
     page: 1,
     maxPage: 20,
   })
+  const temp = new Date()
+  const res = `${temp.getFullYear()}-${temp.getMonth() + 1}-${temp.getDate()}`
 
+  const { news, loading } = useTypeSelector((state) => state.news)
+  const dispatch = useDispatch()
   useEffect(() => {
     if (isResponced && searchData.length > 0) {
-      setNews([])
       setIsResponced(false)
-      setIsExpects(true)
 
-      fetch(
-        `https://newsapi.org/v2/everything?q=${searchData
-          .trim()
-          .toLocaleLowerCase()}&from=2021-08-13&to=2021-08-13&sortBy=${sortParam}&pageSize=${
-          pageInfo.pageSize
-        }&page=${pageInfo.page}&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
+      dispatch(
+        fetchNews(res, sortParam, searchData, pageInfo.pageSize, pageInfo.page)
       )
-        .then((res) => {
-          return res.json()
-        })
-        .then((data) => {
-          const res =
-            data.totalResults < 100
-              ? Math.ceil(data.totalResults / pageInfo.pageSize)
-              : Math.ceil(100 / pageInfo.pageSize)
-          setPageInfo({
-            ...pageInfo,
-            maxPage: res,
-          })
-          setIsExpects(false)
-          setNews(data.articles)
-        })
-        .catch(() => {
-          console.log('error')
-        })
     }
   })
+
+  // useEffect(() => {
+  //   if (isResponced && searchData.length > 0) {
+  //     setNews([])
+  //     setIsResponced(false)
+  //     setIsExpects(true)
+
+  //     fetch(
+  //       `https://newsapi.org/v2/everything?q=${searchData
+  //         .trim()
+  //         .toLocaleLowerCase()}&from=2021-08-13&to=2021-08-13&sortBy=${sortParam}&pageSize=${
+  //         pageInfo.pageSize
+  //       }&page=${pageInfo.page}&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
+  //     )
+  //       .then((res) => {
+  //         return res.json()
+  //       })
+  //       .then((data) => {
+  //         const res =
+  //           data.totalResults < 100
+  //             ? Math.ceil(data.totalResults / pageInfo.pageSize)
+  //             : Math.ceil(100 / pageInfo.pageSize)
+  //         setPageInfo({
+  //           ...pageInfo,
+  //           maxPage: res,
+  //         })
+  //         setIsExpects(false)
+  //         setNews(data.articles)
+  //       })
+  //       .catch(() => {
+  //         console.log('error')
+  //       })
+  //   }
+  // })
 
   return (
     <TransitionGroup>
@@ -73,8 +90,8 @@ export const Content = () => {
                 pageInfo={pageInfo}
                 setPageInfo={setPageInfo}
               />
-              {isExpects && <h3 className="error-line">...loading</h3>}
-              {!isExpects && (
+              {loading && <h3 className="error-line">...loading</h3>}
+              {!loading && (
                 <Main
                   newsData={news}
                   setSortParam={setSortParam}
