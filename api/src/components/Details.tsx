@@ -15,21 +15,6 @@ export const Details = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchDetailsNews(dateStr, title))
-
-    // fetch(
-    //   `https://newsapi.org/v2/everything?qInTitle='${title.substring(
-    //     1
-    //   )}'&from=2021-08-13&to=2021-08-13&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
-    // )
-    //   .then((res) => {
-    //     return res.json()
-    //   })
-    //   .then((data) => {
-    //     setDetails(data.articles)
-    //   })
-    //   .catch(() => {
-    //     console.log('error')
-    //   })
   }, [title])
 
   return (
