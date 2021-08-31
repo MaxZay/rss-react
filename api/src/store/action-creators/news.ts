@@ -15,9 +15,14 @@ export const fetchNews = (
       const responce = await axios.get(
         `https://newsapi.org/v2/everything?q=${searchingString
           .trim()
-          .toLocaleLowerCase()}&from=${date}&to=${date}&sortBy=${sortBy}&pageSize=${pageSize}&page=${page}&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
+          .toLocaleLowerCase()}&from=${date}&to=${date}&sortBy=${sortBy}&pageSize=${pageSize}&page=${page}&apiKey=00ac008fe54b42ae824e6c007fac3c70`
       )
-      dispatch({ type: NewsActionTypes.FETCH_NEWS_SUCCESS, payload: responce })
+      console.log(responce.data)
+
+      dispatch({
+        type: NewsActionTypes.FETCH_NEWS_SUCCESS,
+        payload: responce.data.articles,
+      })
     } catch (e) {
       dispatch({ type: NewsActionTypes.FETCH_NEWS_ERROR, payload: 'Error' })
     }

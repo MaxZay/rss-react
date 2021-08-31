@@ -18,10 +18,8 @@ export const Content = () => {
     dateFlag: false,
     titleFlag: false,
   })
-  // const [news, setNews] = useState([])
   const [isResponced, setIsResponced] = useState(false)
   const [searchData, setSearchData] = useState('')
-  //const [isExpects, setIsExpects] = useState(false)
   const [sortParam, setSortParam] = useState('popularity')
   const [pageInfo, setPageInfo] = useState({
     pageSize: 5,
@@ -29,7 +27,9 @@ export const Content = () => {
     maxPage: 20,
   })
   const temp = new Date()
-  const res = `${temp.getFullYear()}-${temp.getMonth() + 1}-${temp.getDate()}`
+  const resStr = `${temp.getFullYear()}-${
+    temp.getMonth() + 1
+  }-${temp.getDate()}`
 
   const { news, loading } = useTypeSelector((state) => state.news)
   const dispatch = useDispatch()
@@ -38,8 +38,22 @@ export const Content = () => {
       setIsResponced(false)
 
       dispatch(
-        fetchNews(res, sortParam, searchData, pageInfo.pageSize, pageInfo.page)
+        fetchNews(
+          resStr,
+          sortParam,
+          searchData,
+          pageInfo.pageSize,
+          pageInfo.page
+        )
       )
+      const res =
+        news.totalResults < 100
+          ? Math.ceil(data.totalResults / pageInfo.pageSize)
+          : Math.ceil(100 / pageInfo.pageSize)
+      setPageInfo({
+        ...pageInfo,
+        maxPage: res,
+      })
     }
   })
 
