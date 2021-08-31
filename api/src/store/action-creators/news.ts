@@ -17,7 +17,26 @@ export const fetchNews = (
           .trim()
           .toLocaleLowerCase()}&from=${date}&to=${date}&sortBy=${sortBy}&pageSize=${pageSize}&page=${page}&apiKey=00ac008fe54b42ae824e6c007fac3c70`
       )
-      console.log(responce.data)
+
+      dispatch({
+        type: NewsActionTypes.FETCH_NEWS_SUCCESS,
+        payload: responce.data.articles,
+      })
+    } catch (e) {
+      dispatch({ type: NewsActionTypes.FETCH_NEWS_ERROR, payload: 'Error' })
+    }
+  }
+}
+
+export const fetchDetailsNews = (date: string, title: string) => {
+  return async (dispatch: Dispatch<NewsAction>) => {
+    try {
+      dispatch({ type: NewsActionTypes.FETCH_NEWS })
+      const responce = await axios.get(
+        `https://newsapi.org/v2/everything?qInTitle='${title.substring(
+          1
+        )}'&apiKey=00ac008fe54b42ae824e6c007fac3c70`
+      )
 
       dispatch({
         type: NewsActionTypes.FETCH_NEWS_SUCCESS,
