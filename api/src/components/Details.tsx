@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { useTypeSelector } from '../hooks/useTypeSelector'
-import { fetchDetailsNews } from '../store/action-creators/news'
+import { fetchDetailsNews } from '../store/action-creators/details'
 import { DetailsCard } from './DetailsCard'
 
 export const Details = () => {
@@ -11,7 +11,7 @@ export const Details = () => {
   const dateStr = `${temp.getFullYear()}-${
     temp.getMonth() + 1
   }-${temp.getDate()}`
-  const { news } = useTypeSelector((state) => state.news)
+  const { details } = useTypeSelector((state) => state.details)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchDetailsNews(dateStr, title))
@@ -19,7 +19,7 @@ export const Details = () => {
 
   return (
     <div>
-      <DetailsCard details={news} />
+      <DetailsCard details={details} />
     </div>
   )
 }
