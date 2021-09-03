@@ -1,0 +1,23 @@
+.buttons-item {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  height: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 5px;
+}
+
+.buttons-item__button {
+  width: 23px;
+  height: 23px;
+  outline: none;
+  border: none;
+  background-color: rgb(33, 33, 33);
+  border-radius: 50%;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
