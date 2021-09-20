@@ -15,8 +15,9 @@ export const fetchNews = (
       const responce = await axios.get(
         `https://newsapi.org/v2/everything?q=${searchingString
           .trim()
-          .toLocaleLowerCase()}&from=${date}&to=${date}&sortBy=${sortBy}&pageSize=${pageSize}&page=${page}&apiKey=00ac008fe54b42ae824e6c007fac3c70`
+          .toLocaleLowerCase()}&from=2021-09-19&to=2021-09-20&sortBy=${sortBy}&pageSize=${pageSize}&page=${page}&apiKey=00ac008fe54b42ae824e6c007fac3c70`
       )
+      console.log(responce.data)
 
       dispatch({
         type: NewsActionTypes.FETCH_NEWS_SUCCESS,
