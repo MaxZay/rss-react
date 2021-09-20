@@ -1,0 +1,30 @@
+.details-item__block {
+  background-color: rgb(50, 50, 50);
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+}
+
+.details-item__title {
+  font-family: 'Roboto', sans-serif;
+  color: wheat;
+  font-size: 30px;
+  text-align: center;
+}
+
+.details-item__img {
+  margin: 10px auto 10px auto;
+}
+
+.details-item__content {
+  color: white;
+  width: 70%;
+}
+
+.details-item__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
