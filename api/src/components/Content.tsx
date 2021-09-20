@@ -35,9 +35,9 @@ export const Content = () => {
       fetch(
         `https://newsapi.org/v2/everything?q=${searchData
           .trim()
-          .toLocaleLowerCase()}&from=2021-08-13&to=2021-08-13&sortBy=${sortParam}&pageSize=${
+          .toLocaleLowerCase()}&from=2021-09-19&to=2021-09-20&sortBy=${sortParam}&pageSize=${
           pageInfo.pageSize
-        }&page=${pageInfo.page}&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
+        }&page=${pageInfo.page}&apiKey=00ac008fe54b42ae824e6c007fac3c70`
       )
         .then((res) => {
           return res.json()

@@ -9,7 +9,7 @@ export const Details = () => {
     fetch(
       `https://newsapi.org/v2/everything?qInTitle='${title.substring(
         1
-      )}'&from=2021-08-13&to=2021-08-13&apiKey=214dc9e8e8fe4b5888ec0c0ffe923188`
+      )}'&from=2021-09-19&to=2021-09-20&apiKey=00ac008fe54b42ae824e6c007fac3c70`
     )
       .then((res) => {
         return res.json()

@@ -1,6 +1,6 @@
 import '../styles/app.css'
 import { Content } from './Content'
-import { BrowserRouter as Router, Link } from 'react-router-dom'
+import { BrowserRouter as Router, NavLink } from 'react-router-dom'
 
 export const App = () => {
   return (
@@ -9,10 +9,14 @@ export const App = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <NavLink exact to="/" activeClassName="active-link">
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <NavLink to="/about" activeClassName="active-link">
+                About
+              </NavLink>
             </li>
           </ul>
         </nav>

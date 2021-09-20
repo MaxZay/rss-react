@@ -34,6 +34,8 @@ export const Main: React.FC<IMain> = (props: IMain) => {
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   if (event.target.checked) {
                     props.setRadioFlag({
+                      popularityFlag: false,
+                      dateFlag: false,
                       titleFlag: true,
                     })
                     changeHandler(event)
@@ -52,7 +54,9 @@ export const Main: React.FC<IMain> = (props: IMain) => {
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   if (event.target.checked) {
                     props.setRadioFlag({
+                      popularityFlag: false,
                       dateFlag: true,
+                      titleFlag: false,
                     })
                     changeHandler(event)
                   }
@@ -71,6 +75,8 @@ export const Main: React.FC<IMain> = (props: IMain) => {
                   if (event.target.checked) {
                     props.setRadioFlag({
                       popularityFlag: true,
+                      dateFlag: false,
+                      titleFlag: false,
                     })
                     changeHandler(event)
                   }
