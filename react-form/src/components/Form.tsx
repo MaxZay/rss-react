@@ -1,15 +1,15 @@
-import { ChangeEvent, FocusEventHandler, FormEvent, useState } from 'react'
-import FormInfo from '../classes/formInfo'
+import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react'
+import { FormInfo } from '../classes/formInfo'
 import '../styles/From.css'
-import IsValid from '../classes/isValid'
+import { getBirthDateStatus, getNameStatus } from '../classes/isValid'
 
 interface IForm {
-  setFormData: (state: FormInfo[]) => void
+  formData: FormInfo[]
+  setFormData: (arr: FormInfo[]) => void
 }
 
-let submit = false
-
-export const Form: React.FC<IForm> = (setFormData) => {
+export const Form = (props: IForm) => {
+  const { formData, setFormData } = props
   const [nameValue, setNameValue] = useState('')
   const [lastNameValue, setLastNameValue] = useState('')
   const [birthValue, setBirthValue] = useState('')
@@ -45,32 +45,50 @@ export const Form: React.FC<IForm> = (setFormData) => {
   }
 
   const checkValidateStatus = () => {
-    console.log(validateStatus)
-
-    for (const prop in validateStatus) {
-      if (!validateStatus[prop]) {
+    Object.entries(validateStatus).map((key, value) => {
+      if (!value) {
         return false
       }
-    }
+    })
     return true
   }
 
   const submitHandler = (event: FormEvent) => {
     event.preventDefault()
     if (checkValidateStatus()) {
-      setFormData.state((s) => [
-        ...s,
+      const sex = sexFemaleValue ? 'Мужской' : 'Женский'
+
+      setFormData([
+        ...formData,
         {
-          nameValue,
-          lastNameValue,
-          birthValue,
-          sexMaleValue,
-          sexFemaleValue,
-          selectValue,
-          checkboxValue,
+          name: nameValue,
+          lastName: lastNameValue,
+          date: new Date(birthValue),
+          sex: sex,
+          country: selectValue,
+          agree: checkboxValue,
         },
       ])
       clearForm()
+    }
+  }
+
+  const handleValueChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    str: string
+  ) => {
+    if (str === 'name') {
+      setValidateStatus({
+        ...validateStatus,
+        name: getNameStatus(event.target.value),
+      })
+      setNameValue(event.target.value)
+    } else {
+      setValidateStatus({
+        ...validateStatus,
+        lastName: getNameStatus(event.target.value),
+      })
+      setLastNameValue(event.target.value)
     }
   }
 
@@ -85,14 +103,9 @@ export const Form: React.FC<IForm> = (setFormData) => {
               : 'form-item__input form-item__error-name'
           }
           value={nameValue}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            submit = true
-            setValidateStatus({
-              ...validateStatus,
-              name: IsValid.getNameStatus(event.target.value),
-            })
-            setNameValue(event.target.value)
-          }}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleValueChange(event, 'name')
+          }
         />
         {!validateStatus.name && (
           <p className="form-item__error-name-p">неверные данные</p>
@@ -107,14 +120,9 @@ export const Form: React.FC<IForm> = (setFormData) => {
               : 'form-item__input form-item__error-name'
           }
           value={lastNameValue}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            submit = true
-            setValidateStatus({
-              ...validateStatus,
-              lastName: IsValid.getNameStatus(event.target.value),
-            })
-            setLastNameValue(event.target.value)
-          }}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            handleValueChange(event, 'lastName')
+          }
         />
         {!validateStatus.lastName && (
           <p className="form-item__error-name-p">неверные данные</p>
@@ -132,7 +140,6 @@ export const Form: React.FC<IForm> = (setFormData) => {
           type="date"
           value={birthValue}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            submit = true
             if (event.target.value.length === 0) {
               setValidateStatus({
                 ...validateStatus,
@@ -141,9 +148,7 @@ export const Form: React.FC<IForm> = (setFormData) => {
             } else {
               setValidateStatus({
                 ...validateStatus,
-                birthName: IsValid.getBirthDateStatus(
-                  Date.parse(event.target.value)
-                ),
+                birthName: getBirthDateStatus(Date.parse(event.target.value)),
               })
             }
             setBirthValue(event.target.value)
@@ -161,7 +166,6 @@ export const Form: React.FC<IForm> = (setFormData) => {
           value="male"
           checked={sexMaleValue}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            submit = true
             setMaleSexValue(event.target.checked)
             setFemaleSexValue(false)
           }}
@@ -173,7 +177,6 @@ export const Form: React.FC<IForm> = (setFormData) => {
           value="female"
           checked={sexFemaleValue}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            submit = true
             setFemaleSexValue(event.target.checked)
             setMaleSexValue(false)
           }}
@@ -183,9 +186,11 @@ export const Form: React.FC<IForm> = (setFormData) => {
         name="select"
         className="form-item__input-select"
         value={selectValue}
-        onChange={(event: FocusEventHandler<HTMLInputElement>) => {
-          submit = true
+        onChange={(event: ChangeEvent<HTMLSelectElement>) => {
           setSelectValue(event.target.value)
+        }}
+        onBlur={(event: FocusEvent<HTMLSelectElement>) => {
+          console.log(event.target)
         }}
       >
         <option value="Россия">Россия</option>
@@ -203,7 +208,6 @@ export const Form: React.FC<IForm> = (setFormData) => {
           className="form-item__input-checkbox"
           checked={checkboxValue}
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            submit = true
             setValidateStatus({
               ...validateStatus,
               checkBox: event.target.checked,
