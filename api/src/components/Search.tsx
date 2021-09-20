@@ -1,9 +1,9 @@
 import '../styles/search.css'
 import LOUPE from '../assets/loupe.svg'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, FormEvent } from 'react'
 
 interface ISearch {
-  flagFunc: (flag: boolean) => void
+  getDataLoadingFlag: (flag: boolean) => void
   setSearchData: (value: string) => void
   searchData: string
   pageInfo: any
@@ -11,7 +11,8 @@ interface ISearch {
 }
 
 export const Search: React.FC<ISearch> = (props) => {
-  const submitHandler = (event: FormEvent) => {
+  const submitHandler = (event: FormEvent<HTMLFormElement>) => {
+    props.getDataLoadingFlag(true)
     event.preventDefault()
   }
 
@@ -30,12 +31,7 @@ export const Search: React.FC<ISearch> = (props) => {
           props.setSearchData(event.target.value)
         }}
       ></input>
-      <button
-        className="search-item__button"
-        onClick={() => {
-          props.flagFunc(true)
-        }}
-      >
+      <button className="search-item__button" type="submit">
         <img
           className="search-item__loupe"
           src={LOUPE}

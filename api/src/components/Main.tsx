@@ -3,7 +3,7 @@ import '../styles/main.css'
 import { ChangeEvent } from 'react'
 
 interface IMain {
-  flagFunc: (flag: boolean) => void
+  getDataLoadingFlag: (flag: boolean) => void
   setSortParam: (str: string) => void
   newsData: any
   radioFlag: any
@@ -15,12 +15,12 @@ interface IMain {
 export const Main: React.FC<IMain> = (props: IMain) => {
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     props.setSortParam(event.target.value)
-    props.flagFunc(true)
+    props.getDataLoadingFlag(true)
   }
 
   return (
     <div>
-      {props.newsData.length !== 0 && (
+      {props.newsData?.length !== 0 && (
         <div>
           <div className="main-item__block">
             <div>
@@ -34,6 +34,8 @@ export const Main: React.FC<IMain> = (props: IMain) => {
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   if (event.target.checked) {
                     props.setRadioFlag({
+                      popularityFlag: false,
+                      dateFlag: false,
                       titleFlag: true,
                     })
                     changeHandler(event)
@@ -52,7 +54,9 @@ export const Main: React.FC<IMain> = (props: IMain) => {
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   if (event.target.checked) {
                     props.setRadioFlag({
+                      popularityFlag: false,
                       dateFlag: true,
+                      titleFlag: false,
                     })
                     changeHandler(event)
                   }
@@ -70,7 +74,9 @@ export const Main: React.FC<IMain> = (props: IMain) => {
                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                   if (event.target.checked) {
                     props.setRadioFlag({
-                      popularityFlag: true,
+                      popularityFlag: false,
+                      dateFlag: false,
+                      titleFlag: true,
                     })
                     changeHandler(event)
                   }
@@ -98,7 +104,7 @@ export const Main: React.FC<IMain> = (props: IMain) => {
             <button
               className="main-item__page-ok-button"
               onClick={() => {
-                props.flagFunc(true)
+                props.getDataLoadingFlag(true)
               }}
             >
               ok
@@ -116,7 +122,7 @@ export const Main: React.FC<IMain> = (props: IMain) => {
             onClick={() => {
               if (props.pageInfo.page !== 1) {
                 const res = props.pageInfo.page - 1
-                props.flagFunc(true)
+                props.getDataLoadingFlag(true)
                 props.setPageInfo({
                   ...props.pageInfo,
                   page: res,
@@ -132,7 +138,7 @@ export const Main: React.FC<IMain> = (props: IMain) => {
             onClick={() => {
               if (props.pageInfo.page < props.pageInfo.maxPage) {
                 const res = props.pageInfo.page + 1
-                props.flagFunc(true)
+                props.getDataLoadingFlag(true)
                 props.setPageInfo({
                   ...props.pageInfo,
                   page: res,
